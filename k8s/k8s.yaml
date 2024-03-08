@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mybar-frontend
+  name: mybar-frontend
+spec:
+  replicas: ${REPLICA_COUNT}
+  selector:
+    matchLabels:
+      app: mybar-frontend
+  template:
+    metadata:
+      labels:
+        app: mybar-frontend
+    spec:
+      containers:
+        - image: ${IMAGE_NAME}
+          imagePullPolicy: Always
+          name: mybar-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mybar-frontend-service
+spec:
+  selector:
+    app: mybar-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-bar-front
+spec:
+  rules:
+  - host: nzfk.ru
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mybar-frontend-service
+              port:
+                number: 80
