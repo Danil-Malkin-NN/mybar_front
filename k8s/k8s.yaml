@@ -38,7 +38,7 @@ metadata:
   name: my-bar-front
 spec:
   rules:
-  - host: nzfk.ru
+  - host: mybar.dvmalkin.online
     http:
       paths:
         - path: /
