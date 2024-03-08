@@ -80,4 +80,4 @@ jobs:
         uses: Azure/k8s-deploy@v4
         with:
           manifests: |
-            deploy/deployment.yaml
+            k8s/deployment.yaml
