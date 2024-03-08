@@ -1,4 +1,4 @@
-FROM node:17-alpine as react-build
+FROM node:20-alpine as react-build
 WORKDIR /app
 COPY . ./
 RUN npm run build
