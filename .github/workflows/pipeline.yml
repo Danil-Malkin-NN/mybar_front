@@ -40,7 +40,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          context: ./nzfk-app
+#          context: ./
           build-args: |
             "REACT_APP_BASE_URL=${{ env.REACT_APP_BASE_URL }}"
           push: true
