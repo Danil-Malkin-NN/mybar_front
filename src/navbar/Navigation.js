@@ -18,6 +18,8 @@ function Navigation() {
                 </li>
                 <li>
                     <NavLink to="/mybar" activeClassName="active">Мой бар</NavLink>
+                </li>                <li>
+                    <NavLink to="/login" activeClassName="active">Войти</NavLink>
                 </li>
             </ul>
         </nav>
