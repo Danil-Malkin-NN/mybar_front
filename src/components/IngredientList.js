@@ -34,6 +34,7 @@ function IngredientList() {
                 {ingredients.map(ingredient => (
                     <div key={ingredient.id} className="ingredient-card">
                         <h3>{ingredient.name}</h3>
+                        <p>{ingredient.description}</p>
                         {/* Другая информация об ингредиенте */}
                     </div>
                 ))}
