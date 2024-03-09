@@ -1,44 +1,56 @@
-// IngredientList.js
-
 import React, { useState, useEffect } from 'react';
-import './griid.css'; // импортируем файл стилей для карточек
+import axios from 'axios';
 
 function IngredientList() {
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://mybar.dvmalkin.online/api/ingredients/all')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch ingredients');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setIngredients(data);
-            })
-            .catch(error => {
+        async function fetchIngredients() {
+            try {
+                const response = await axios.get('http://mybar.dvmalkin.online/api/ingredients/all');
+                setIngredients(response.data);
+            } catch (error) {
                 setError(error.message);
-            });
+            }
+        }
+
+        fetchIngredients();
     }, []);
+
+    const handleAddIngredient = async (ingredientId) => {
+        try {
+            const authHeaders = JSON.parse(localStorage.getItem('authHeaders'));
+
+            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`, {
+                headers: {
+                    Authorization: authHeaders.Authorization,
+                    Cookie: authHeaders['set-cookie']
+                }
+            });
+
+            console.log('Ingredient added successfully:', response.data);
+            // Можно обновить список ингредиентов после успешного добавления
+        } catch (error) {
+            console.error('Failed to add ingredient:', error);
+        }
+    };
 
     if (error) {
         return <div>Error: {error}</div>;
     }
 
     return (
-        <div className="ingredient-container">
+        <div>
             <h1>Ingredients</h1>
-            <div className="ingredient-grid">
+            <ul>
                 {ingredients.map(ingredient => (
-                    <div key={ingredient.id} className="ingredient-card">
-                        <h3>{ingredient.name}</h3>
-                        <p>{ingredient.description}</p>
-                        {/* Другая информация об ингредиенте */}
-                    </div>
+                    <li key={ingredient.id}>
+                        {ingredient.name}
+                        <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }
