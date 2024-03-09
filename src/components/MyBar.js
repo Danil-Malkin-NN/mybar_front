@@ -16,7 +16,7 @@ function MyBar() {
                         authHeaders,
                     }
                 });
-                return response.data;
+                setIngredients(response.data)
             } catch (error) {
                 setError(error.message);
             }
@@ -30,12 +30,17 @@ function MyBar() {
 
     return (
         <div>
-            <h1>Мой бар</h1>
-            <ul>
+            <h1>Ingredients</h1>
+            <div className="ingredient-grid">
                 {ingredients.map(ingredient => (
-                    <li key={ingredient.id}>{ingredient.name}</li>
+                    <div key={ingredient.id} className="ingredient-card">
+                        <h3>{ingredient.name}</h3>
+                        <p>{ingredient.description}</p>
+                        {/* Другая информация об ингредиенте */}
+                        {/*<button onClick={() => handleAddIngredient(ingredient.id)}>-</button>*/}
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
