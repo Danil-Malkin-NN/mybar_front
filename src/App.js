@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import IngredientList from './components/IngredientList';
 import InstrumentsList from './components/InstrumentsList';
 import CocktailsList from './components/CocktailsList';
+import CocktailDetails from './components/CocktailDetails';
 
 function App() {
     return (
