@@ -3,8 +3,8 @@
 import React, {useState, useEffect} from 'react';
 import './IngredientList.css'; // импортируем файл стилей для карточек
 
-function instrumentList() {
-    const [instruments, setinstruments] = useState([]);
+function InstrumentList() {
+    const [instruments, setInstruments] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ function instrumentList() {
                 return response.json();
             })
             .then(data => {
-                setinstruments(data);
+                setInstruments(data);
             })
             .catch(error => {
                 setError(error.message);
@@ -43,4 +43,4 @@ function instrumentList() {
     );
 }
 
-export default instrumentList;
+export default InstrumentList;

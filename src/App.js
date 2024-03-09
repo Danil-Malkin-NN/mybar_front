@@ -3,7 +3,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import IngredientList from './components/IngredientList';
-import InstrumentsList from "./components/InstrumentsList";
+import InstrumentsList from './components/InstrumentsList';
 
 function App() {
     return (
