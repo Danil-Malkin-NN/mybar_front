@@ -23,7 +23,7 @@ function IngredientList() {
 
         try {
             console.log('Request Headers:', {
-                Authorization: authHeaders,
+                authHeaders
             });
 
             const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`,
@@ -32,7 +32,7 @@ function IngredientList() {
                 },
                 {
                     headers: {
-                        Authorization: authHeaders,
+                        authHeaders,
                     }
                 });
 
