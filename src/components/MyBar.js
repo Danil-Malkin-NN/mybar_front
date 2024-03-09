@@ -30,7 +30,7 @@ function MyBar() {
 
     return (
         <div>
-            <h1>Ingredients</h1>
+            <h1>Мои ингредиенты</h1>
             <div className="ingredient-grid">
                 {ingredients.map(ingredient => (
                     <div key={ingredient.id} className="ingredient-card">
