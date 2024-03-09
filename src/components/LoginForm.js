@@ -13,7 +13,7 @@ function LoginForm() {
                 password: password
             });
             // Проверяем успешность логина
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 302) {
                 console.log('Logged in successfully!');
                 // Сохраняем заголовки из ответа в localStorage
                 localStorage.setItem('authHeaders', JSON.stringify(response.headers));
