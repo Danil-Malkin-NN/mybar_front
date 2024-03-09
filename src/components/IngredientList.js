@@ -1,5 +1,7 @@
+// IngredientList.js
 
 import React, { useState, useEffect } from 'react';
+import './IngredientList.css'; // импортируем файл стилей для карточек
 
 function IngredientList() {
     const [ingredients, setIngredients] = useState([]);
@@ -26,13 +28,16 @@ function IngredientList() {
     }
 
     return (
-        <div>
+        <div className="ingredient-container">
             <h1>Ingredients</h1>
-            <ul>
+            <div className="ingredient-grid">
                 {ingredients.map(ingredient => (
-                    <li key={ingredient.id}>{ingredient.name}</li>
+                    <div key={ingredient.id} className="ingredient-card">
+                        <h3>{ingredient.name}</h3>
+                        {/* Другая информация об ингредиенте */}
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

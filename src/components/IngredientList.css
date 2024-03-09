@@ -1,0 +1,18 @@
+/* IngredientList.css */
+
+.ingredient-container {
+    padding: 20px;
+}
+
+.ingredient-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 карточек в ширину */
+    grid-gap: 20px;
+}
+
+.ingredient-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    /* Дополнительные стили карточки */
+}
