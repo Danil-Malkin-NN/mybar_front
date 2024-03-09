@@ -9,15 +9,16 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Отправляем запрос на логин с указанным именем пользователя и паролем
             const response = await axios.post('http://mybar.dvmalkin.online/api/login', {
                 username: username,
                 password: password
-            }, { withCredentials: true });
+            });
 
-            // Проверяем успешность логина (например, проверяем статус кода ответа)
+            // Проверяем успешность логина
             if (response.status === 200) {
                 console.log('Logged in successfully!');
+                // Сохраняем заголовки из ответа в localStorage
+                localStorage.setItem('authHeaders', JSON.stringify(response.headers));
                 // Здесь вы можете перенаправить пользователя на другую страницу или обновить текущую страницу
             } else {
                 setError('Login failed');

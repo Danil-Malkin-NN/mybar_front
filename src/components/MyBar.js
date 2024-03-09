@@ -8,14 +8,20 @@ function MyBar() {
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                // Отправляем запрос на получение ингредиентов с автоматической аутентификацией на основе куков
-                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients', { withCredentials: true });
-                setIngredients(response.data);
+                // Получаем заголовки из localStorage
+                const authHeaders = JSON.parse(localStorage.getItem('authHeaders'));
+
+                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients', {
+                    headers: {
+                        Authorization: authHeaders.Authorization,
+                        Cookie: authHeaders['set-cookie']
+                    }
+                });
+                return response.data;
             } catch (error) {
                 setError(error.message);
             }
         }
-
         fetchIngredients();
     }, []);
 
