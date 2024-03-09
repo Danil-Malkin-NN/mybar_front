@@ -1,25 +1,22 @@
-// MyBar.js
-
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function MyBar() {
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://mybar.dvmalkin.online/api/my/ingredients')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch ingredients from My Bar');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setIngredients(data);
-            })
-            .catch(error => {
+        async function fetchIngredients() {
+            try {
+                // Отправляем запрос на получение ингредиентов с автоматической аутентификацией на основе куков
+                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients', { withCredentials: true });
+                setIngredients(response.data);
+            } catch (error) {
                 setError(error.message);
-            });
+            }
+        }
+
+        fetchIngredients();
     }, []);
 
     if (error) {
