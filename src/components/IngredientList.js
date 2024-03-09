@@ -1,7 +1,7 @@
 // IngredientList.js
 
 import React, { useState, useEffect } from 'react';
-import './IngredientList.css'; // импортируем файл стилей для карточек
+import './griid.css'; // импортируем файл стилей для карточек
 
 function IngredientList() {
     const [ingredients, setIngredients] = useState([]);

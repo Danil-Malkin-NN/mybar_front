@@ -3,20 +3,20 @@
 import React, {useState, useEffect} from 'react';
 import './griid.css'; // импортируем файл стилей для карточек
 
-function InstrumentList() {
-    const [instruments, setInstruments] = useState([]);
+function CocktailsList() {
+    const [Cocktails, setCocktails] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://mybar.dvmalkin.online/api/instruments/all')
+        fetch('http://mybar.dvmalkin.online/api/cocktails/all')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to fetch instruments');
+                    throw new Error('Failed to fetch Cocktails');
                 }
                 return response.json();
             })
             .then(data => {
-                setInstruments(data);
+                setCocktails(data);
             })
             .catch(error => {
                 setError(error.message);
@@ -29,12 +29,12 @@ function InstrumentList() {
 
     return (
         <div className="ingredient-container">
-            <h1>instruments</h1>
+            <h1>Cocktails</h1>
             <div className="ingredient-grid">
-                {instruments.map(instrument => (
-                    <div key={instrument.id} className="ingredient-card">
-                        <h3>{instrument.name}</h3>
-                        <p>{instrument.description}</p>
+                {Cocktails.map(Cocktail => (
+                    <div key={Cocktail.id} className="ingredient-card">
+                        <h3>{Cocktail.name}</h3>
+                        <p>{Cocktail.description}</p>
                         {/* Другая информация об ингредиенте */}
                     </div>
                 ))}
@@ -43,4 +43,4 @@ function InstrumentList() {
     );
 }
 
-export default InstrumentList;
+export default CocktailsList;
