@@ -15,7 +15,7 @@ function App() {
                     <Route path="/ingredients" element={<IngredientList />} />
                     <Route path="/instruments" element={<InstrumentsList />} />
                     <Route path="/cocktails" element={<CocktailsList />} />
-                    <Route path="/cocktails/:id" component={CocktailDetails} />
+                    <Route path="/cocktails/:id" component={<CocktailDetails />} />
                     {/* Другие маршруты, если есть */}
                 </Routes>
             </div>
