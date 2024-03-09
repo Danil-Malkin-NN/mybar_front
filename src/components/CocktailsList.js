@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import './griid.css'; // импортируем файл стилей для карточек
 
 function CocktailsList() {
-    const [Cocktails, setCocktails] = useState([]);
+    const [cocktails, setCocktails] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -31,10 +31,10 @@ function CocktailsList() {
         <div className="ingredient-container">
             <h1>Cocktails</h1>
             <div className="ingredient-grid">
-                {Cocktails.map(Cocktail => (
-                    <div key={Cocktail.id} className="ingredient-card">
-                        <h3>{Cocktail.name}</h3>
-                        <p>{Cocktail.description}</p>
+                {cocktails.map(cocktail => (
+                    <div key={cocktail.id} className="ingredient-card">
+                        <h3>{cocktail.name}</h3>
+                        <p>{cocktail.description}</p>
                         {/* Другая информация об ингредиенте */}
                     </div>
                 ))}
