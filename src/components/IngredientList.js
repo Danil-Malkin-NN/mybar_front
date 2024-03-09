@@ -43,14 +43,16 @@ function IngredientList() {
     return (
         <div>
             <h1>Ingredients</h1>
-            <ul>
+            <div className="ingredient-grid">
                 {ingredients.map(ingredient => (
-                    <li key={ingredient.id}>
-                        {ingredient.name}
+                    <div key={ingredient.id} className="ingredient-card">
+                        <h3>{ingredient.name}</h3>
+                        <p>{ingredient.description}</p>
+                        {/* Другая информация об ингредиенте */}
                         <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
