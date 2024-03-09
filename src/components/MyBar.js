@@ -7,7 +7,7 @@ function MyBar() {
 
     useEffect(() => {
         async function fetchIngredients() {
-            const authHeaders = localStorage.getItem('basic');
+            const authHeaders = localStorage.getItem('authHeaders');
 
             try {
 
