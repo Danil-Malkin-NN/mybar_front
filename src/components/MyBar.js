@@ -7,14 +7,13 @@ function MyBar() {
 
     useEffect(() => {
         async function fetchIngredients() {
+            const authHeaders = localStorage.getItem('basic');
+
             try {
-                // Получаем заголовки из localStorage
-                const authHeaders = JSON.parse(localStorage.getItem('authHeaders'));
 
                 const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients', {
                     headers: {
-                        Authorization: authHeaders.Authorization,
-                        Cookie: authHeaders['set-cookie']
+                        authHeaders,
                     }
                 });
                 return response.data;
