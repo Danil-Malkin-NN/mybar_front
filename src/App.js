@@ -7,6 +7,7 @@ import IngredientList from './components/IngredientList';
 import InstrumentsList from './components/InstrumentsList';
 import CocktailsList from './components/CocktailsList';
 import CocktailDetails from './components/CocktailDetails';
+import MyBar from './components/MyBar';
 
 function App() {
     return (
