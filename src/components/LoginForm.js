@@ -7,7 +7,6 @@ function LoginForm() {
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
         try {
             const response = await axios.get('http://mybar.dvmalkin.online/api/login', {
                 headers: {
@@ -15,16 +14,18 @@ function LoginForm() {
                 }
             });
 
-            // Проверяем успешность логина
             if (response.status === 200) {
                 console.log('Logged in successfully!');
-                // Здесь вы можете перенаправить пользователя на другую страницу или обновить текущую страницу
+                // Сохраняем базовый токен для последующих запросов
+                localStorage.setItem("basic", "Basic " + btoa(`${username}:${password}`));
             } else {
-                setError('Login failed');
+                throw new Error('Login failed');
             }
         } catch (error) {
-            setError(error.message);
+            console.error('Login error:', error);
+            throw error;
         }
+
     };
 
     return (

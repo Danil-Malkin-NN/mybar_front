@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 function IngredientList() {
@@ -20,14 +20,16 @@ function IngredientList() {
 
     const handleAddIngredient = async (ingredientId) => {
         try {
-            const authHeaders = JSON.parse(localStorage.getItem('authHeaders'));
+            const authHeaders = JSON.parse(localStorage.getItem('basic'));
 
             const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`, {
-                headers: {
-                    Authorization: authHeaders.Authorization,
-                    Cookie: authHeaders['set-cookie']
-                }
-            });
+                    // Тут должны быть данные вашего запроса, если они есть
+                },
+                {
+                    headers: {
+                        Authorization: authHeaders,
+                    }
+                });
 
             console.log('Ingredient added successfully:', response.data);
             // Можно обновить список ингредиентов после успешного добавления
