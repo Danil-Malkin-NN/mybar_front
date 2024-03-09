@@ -28,11 +28,11 @@ function InstrumentList() {
     }
 
     return (
-        <div className="instrument-container">
+        <div className="ingredient-container">
             <h1>instruments</h1>
-            <div className="instrument-grid">
+            <div className="ingredient-grid">
                 {instruments.map(instrument => (
-                    <div key={instrument.id} className="instrument-card">
+                    <div key={instrument.id} className="ingredient-card">
                         <h3>{instrument.name}</h3>
                         <p>{instrument.description}</p>
                         {/* Другая информация об ингредиенте */}
