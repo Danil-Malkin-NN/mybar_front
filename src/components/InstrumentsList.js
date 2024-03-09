@@ -1,7 +1,7 @@
 // instrumentList.js
 
 import React, {useState, useEffect} from 'react';
-import './IngredientList.css.css'; // импортируем файл стилей для карточек
+import './IngredientList.css'; // импортируем файл стилей для карточек
 
 function instrumentList() {
     const [instruments, setinstruments] = useState([]);
