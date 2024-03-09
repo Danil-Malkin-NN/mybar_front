@@ -1,7 +1,8 @@
-// instrumentList.js
+// CocktailsList.js
 
-import React, {useState, useEffect} from 'react';
-import './griid.css'; // импортируем файл стилей для карточек
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './griid.css';
 
 function CocktailsList() {
     const [cocktails, setCocktails] = useState([]);
@@ -32,11 +33,10 @@ function CocktailsList() {
             <h1>Cocktails</h1>
             <div className="ingredient-grid">
                 {cocktails.map(cocktail => (
-                    <div key={cocktail.id} className="ingredient-card">
+                    <Link key={cocktail.id} to={`/cocktails/${cocktail.id}`} className="ingredient-card">
                         <h3>{cocktail.name}</h3>
                         <p>{cocktail.description}</p>
-                        {/* Другая информация об ингредиенте */}
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
