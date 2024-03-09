@@ -8,6 +8,7 @@ import InstrumentsList from './components/InstrumentsList';
 import CocktailsList from './components/CocktailsList';
 import CocktailDetails from './components/CocktailDetails';
 import MyBar from './components/MyBar';
+import LoginForm from './components/LoginForm';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/cocktails" element={<CocktailsList />} />
                     <Route path="/cocktails/:id" element={<CocktailDetails />} />
                     <Route path="/mybar" element={<MyBar />} />
+                    <Route path="/login" element={<LoginForm />} />
                     {/* Другие маршруты, если есть */}
                 </Routes>
             </div>
