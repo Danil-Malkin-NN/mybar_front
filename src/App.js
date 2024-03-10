@@ -9,6 +9,7 @@ import CocktailsList from './components/CocktailsList';
 import CocktailDetails from './components/CocktailDetails';
 import MyBar from './components/MyBar';
 import LoginForm from './components/LoginForm';
+import RegistrationForm from "./components/RegistrationForm";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/cocktails/:id" element={<CocktailDetails />} />
                     <Route path="/mybar" element={<MyBar />} />
                     <Route path="/login" element={<LoginForm />} />
+                    <Route path="/register" element={<RegistrationForm />} />
                     {/* Другие маршруты, если есть */}
                 </Routes>
             </div>

@@ -1,7 +1,7 @@
 // Navigation.js
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Navigation() {
     return (
@@ -18,8 +18,12 @@ function Navigation() {
                 </li>
                 <li>
                     <NavLink to="/mybar" activeClassName="active">Мой бар</NavLink>
-                </li>                <li>
+                </li>
+                <li>
                     <NavLink to="/login" activeClassName="active">Войти</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/register" activeClassName="active">Регистрация</NavLink>
                 </li>
             </ul>
         </nav>
