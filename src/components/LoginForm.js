@@ -10,8 +10,12 @@ function LoginForm() {
         e.preventDefault();
         try {
             const response = await axios.post('http://mybar.dvmalkin.online/api/login', {
-                username: username,
-                password: password
+                "username": username,
+                "password": password
+            }, {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
             });
 
             // Проверяем успешность логина
