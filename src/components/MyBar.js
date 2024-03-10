@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 
@@ -46,30 +46,30 @@ function MyBar() {
     }
 
     return (<>
-        <div>
-            <h1>Мой бар</h1>
-            <div className="ingredient-grid">
-                {ingredients.map(ingredient => (
-                    <div key={ingredient.id} className="ingredient-card">
-                        <h3>{ingredient.name}</h3>
-                        <p>{ingredient.description}</p>
-                        {/* Другая информация об ингредиенте */}
-                        <button onClick={() => handleDeleteIngredient(ingredient.id)}>Удалить</button>
-                    </div>
-                ))}
+            <div className="ingredient-container">
+                <h1>Мой бар</h1>
+                <div className="ingredient-grid">
+                    {ingredients.map(ingredient => (
+                        <div key={ingredient.id} className="ingredient-card">
+                            <h3>{ingredient.name}</h3>
+                            <p>{ingredient.description}</p>
+                            {/* Другая информация об ингредиенте */}
+                            <button onClick={() => handleDeleteIngredient(ingredient.id)}>Удалить</button>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
-        <div className="ingredient-container">
-            <h1>Cocktails</h1>
-            <div className="ingredient-grid">
-                {cocktails.map(cocktail => (
-                    <Link key={cocktail.id} to={`/cocktails/${cocktail.id}`} className="ingredient-card">
-                        <h3>{cocktail.name}</h3>
-                        <p>{cocktail.description}</p>
-                    </Link>
-                ))}
+            <div className="ingredient-container">
+                <h1>Cocktails</h1>
+                <div className="ingredient-grid">
+                    {cocktails.map(cocktail => (
+                        <Link key={cocktail.id} to={`/cocktails/${cocktail.id}`} className="ingredient-card">
+                            <h3>{cocktail.name}</h3>
+                            <p>{cocktail.description}</p>
+                        </Link>
+                    ))}
+                </div>
             </div>
-        </div>
         </>
     );
 }
