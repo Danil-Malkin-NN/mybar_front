@@ -7,6 +7,7 @@ function MyBar() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+
         fetch('http://mybar.dvmalkin.online/api/my/ingredients')
             .then(response => {
                 if (!response.ok) {
@@ -30,9 +31,15 @@ function MyBar() {
         <div>
             <h1>Мой бар</h1>
             <ul>
-                {ingredients.map(ingredient => (
-                    <li key={ingredient.id}>{ingredient.name}</li>
-                ))}
+                <div className="ingredient-grid">
+                    {ingredients.map(ingredient => (
+                        <div key={ingredient.id} className="ingredient-card">
+                            <h3>{ingredient.name}</h3>
+                            <p>{ingredient.description}</p>
+                            {/* Другая информация об ингредиенте */}
+                        </div>
+                    ))}
+                </div>
             </ul>
         </div>
     );

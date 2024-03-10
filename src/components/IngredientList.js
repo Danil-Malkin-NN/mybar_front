@@ -19,21 +19,12 @@ function IngredientList() {
     }, []);
 
     const handleAddIngredient = async (ingredientId) => {
-        const authHeaders = localStorage.getItem('basic');
 
         try {
-            console.log('Request Headers:', {
-                authHeaders
-            });
 
             const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`,
                 {
                     // Тут должны быть данные вашего запроса, если они есть
-                },
-                {
-                    headers: {
-                        authHeaders,
-                    }
                 });
 
             console.log('Ingredient added successfully:', response.data);
