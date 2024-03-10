@@ -1,23 +1,25 @@
+// MyBar.js
+
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 function MyBar() {
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function fetchIngredients() {
-            // const authHeaders = localStorage.getItem('authHeaders');
-
-            try {
-
-                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients');
-                setIngredients(response.data)
-            } catch (error) {
+        fetch('http://mybar.dvmalkin.online/api/my/ingredients')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch ingredients from My Bar');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setIngredients(data);
+            })
+            .catch(error => {
                 setError(error.message);
-            }
-        }
-        // fetchIngredients();
+            });
     }, []);
 
     if (error) {
@@ -26,17 +28,12 @@ function MyBar() {
 
     return (
         <div>
-            <h1>Мои ингредиенты</h1>
-            <div className="ingredient-grid">
+            <h1>Мой бар</h1>
+            <ul>
                 {ingredients.map(ingredient => (
-                    <div key={ingredient.id} className="ingredient-card">
-                        <h3>{ingredient.name}</h3>
-                        <p>{ingredient.description}</p>
-                        {/* Другая информация об ингредиенте */}
-                        {/*<button onClick={() => handleAddIngredient(ingredient.id)}>-</button>*/}
-                    </div>
+                    <li key={ingredient.id}>{ingredient.name}</li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }
