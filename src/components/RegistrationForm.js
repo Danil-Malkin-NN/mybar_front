@@ -6,15 +6,20 @@ function RegistrationForm() {
         email: '',
         firstName: '',
         lastName: '',
-        username: '',
-        password: ''
+        userCredentialsDto: {
+            name: '',
+            password: ''
+        }
     });
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -27,8 +32,10 @@ function RegistrationForm() {
                 email: '',
                 firstName: '',
                 lastName: '',
-                username: '',
-                password: ''
+                userCredentialsDto: {
+                    name: '',
+                    password: ''
+                }
             });
         } catch (error) {
             setError('Registration failed');
@@ -55,11 +62,11 @@ function RegistrationForm() {
                 </div>
                 <div>
                     <label>Username:</label>
-                    <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+                    <input type="text" name="name" value={formData.userCredentialsDto.name} onChange={handleChange} required />
                 </div>
                 <div>
                     <label>Password:</label>
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+                    <input type="password" name="password" value={formData.userCredentialsDto.password} onChange={handleChange} required />
                 </div>
                 <button type="submit">Register</button>
             </form>
