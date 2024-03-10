@@ -18,7 +18,7 @@ function LoginForm() {
             if (response.status === 200) {
                 console.log('Logged in successfully!');
                 // Сохраняем заголовки из ответа в localStorage
-                localStorage.setItem('authHeaders', JSON.stringify(response.headers));
+                // localStorage.setItem('authHeaders', JSON.stringify(response.headers));
                 // Здесь вы можете перенаправить пользователя на другую страницу или обновить текущую страницу
             } else {
                 setError('Login failed');

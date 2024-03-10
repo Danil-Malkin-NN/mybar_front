@@ -7,21 +7,17 @@ function MyBar() {
 
     useEffect(() => {
         async function fetchIngredients() {
-            const authHeaders = localStorage.getItem('authHeaders');
+            // const authHeaders = localStorage.getItem('authHeaders');
 
             try {
 
-                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients', {
-                    headers: {
-                        authHeaders,
-                    }
-                });
+                const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients');
                 setIngredients(response.data)
             } catch (error) {
                 setError(error.message);
             }
         }
-        fetchIngredients();
+        // fetchIngredients();
     }, []);
 
     if (error) {
