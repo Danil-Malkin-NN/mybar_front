@@ -16,10 +16,20 @@ function RegistrationForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        if (name === 'name' || name === 'password') {
+            setFormData(prevState => ({
+                ...prevState,
+                userCredentialsDto: {
+                    ...prevState.userCredentialsDto,
+                    [name]: value
+                }
+            }));
+        } else {
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
