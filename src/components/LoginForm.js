@@ -22,25 +22,26 @@ function LoginForm() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                data : data
+                data: data
             };
 
             axios.request(config)
                 .then((response) => {
                     console.log(JSON.stringify(response.data));
+                    if (response.status === 200 || response.status === 302) {
+                        console.log('Logged in successfully!');
+                        // Сохраняем заголовки из ответа в localStorage
+                        localStorage.setItem('authHeaders', JSON.stringify(response.headers));
+                        // Здесь вы можете перенаправить пользователя на другую страницу или обновить текущую страницу
+                    } else {
+                        setError('Login failed');
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             // Проверяем успешность логина
-            if (response.status === 200 || response.status === 302) {
-                console.log('Logged in successfully!');
-                // Сохраняем заголовки из ответа в localStorage
-                localStorage.setItem('authHeaders', JSON.stringify(response.headers));
-                // Здесь вы можете перенаправить пользователя на другую страницу или обновить текущую страницу
-            } else {
-                setError('Login failed');
-            }
+
         } catch (error) {
             console.error('Login error:', error);
             throw error;
