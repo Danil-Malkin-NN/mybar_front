@@ -8,10 +8,30 @@ function LoginForm() {
 
     const handleSubmit = async (e) => {
         try {
-            const response = await axios.post('http://mybar.dvmalkin.online/api/login', {
-                username: username,
-                password: password
+            const axios = require('axios');
+            const qs = require('qs');
+            let data = qs.stringify({
+                'username': username,
+                'password': password
             });
+
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'http://mybar.dvmalkin.online/api/login',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data : data
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             // Проверяем успешность логина
             if (response.status === 200 || response.status === 302) {
                 console.log('Logged in successfully!');
