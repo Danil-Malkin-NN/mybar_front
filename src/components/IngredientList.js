@@ -1,14 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function IngredientList() {
+    const [searchTerm, setSearchTerm] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                const response = await axios.get('http://mybar.dvmalkin.online/api/ingredients/all');
+                let url = 'http://mybar.dvmalkin.online/api/ingredients/all';
+                if (searchTerm) {
+                    url = `http://mybar.dvmalkin.online/api/instruments/search?name=${searchTerm}`;
+                }
+                const response = await axios.get(url);
                 setIngredients(response.data);
             } catch (error) {
                 setError(error.message);
@@ -16,17 +21,11 @@ function IngredientList() {
         }
 
         fetchIngredients();
-    }, []);
+    }, [searchTerm]);
 
     const handleAddIngredient = async (ingredientId) => {
-
         try {
-
-            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`,
-                {
-                    // Тут должны быть данные вашего запроса, если они есть
-                });
-
+            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`);
             console.log('Ingredient added successfully:', response.data);
             // Можно обновить список ингредиентов после успешного добавления
         } catch (error) {
@@ -41,6 +40,14 @@ function IngredientList() {
     return (
         <div>
             <h1>Ingredients</h1>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Search ingredient..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
             <div className="ingredient-grid">
                 {ingredients.map(ingredient => (
                     <div key={ingredient.id} className="ingredient-card">
