@@ -60,13 +60,21 @@ function MyBar() {
                 </div>
             </div>
             <div className="ingredient-container">
-                <h1>Cocktails</h1>
+                <h1>Коктейли</h1>
                 <div className="ingredient-grid">
                     {cocktails.map(cocktail => (
-                        <Link key={cocktail.id} to={`/cocktails/${cocktail.id}`} className="ingredient-card">
+                        <div key={cocktail.id} className="ingredient-card">
                             <h3>{cocktail.name}</h3>
                             <p>{cocktail.description}</p>
-                        </Link>
+                            {/* Другая информация о коктейле */}
+                            <h4>Ингридиенты:</h4>
+                            <ul>
+                                {cocktail.ingredients.map((ingredient, index) => (
+                                    <li key={index}>{ingredient.ingredient.name}</li>
+                                ))}
+                            </ul>
+                            <Link to={`/cocktails/${cocktail.id}`}>Подробнее</Link>
+                        </div>
                     ))}
                 </div>
             </div>

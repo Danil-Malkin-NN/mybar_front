@@ -28,7 +28,7 @@ function CocktailsList() {
 
     return (
         <div className="ingredient-container">
-            <h1>Cocktails</h1>
+            <h1>Коктейли</h1>
             <div className="ingredient-grid">
                 {cocktails.map(cocktail => (
                     <div key={cocktail.id} className="ingredient-card">
