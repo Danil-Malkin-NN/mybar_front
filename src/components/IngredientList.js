@@ -17,7 +17,9 @@ function IngredientList() {
                 }
                 const response = await axios.get(url);
                 setIngredients(response.data.content);
-                setTotalPages(response.data.totalPages);
+                if(!searchTerm){
+                    setTotalPages(response.data.totalPages);
+                }
             } catch (error) {
                 setError(error.message);
             }
