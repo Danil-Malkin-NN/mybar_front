@@ -3,25 +3,28 @@ import axios from 'axios';
 
 function IngredientList() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                let url = 'http://mybar.dvmalkin.online/api/ingredients/all';
+                let url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
                 if (searchTerm) {
                     url = `http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`;
                 }
                 const response = await axios.get(url);
-                setIngredients(response.data);
+                setIngredients(response.data.content);
+                setTotalPages(response.data.totalPages);
             } catch (error) {
                 setError(error.message);
             }
         }
 
         fetchIngredients();
-    }, [searchTerm]);
+    }, [searchTerm, currentPage]);
 
     const handleAddIngredient = async (ingredientId) => {
         try {
@@ -36,6 +39,10 @@ function IngredientList() {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div>
@@ -57,6 +64,11 @@ function IngredientList() {
                         <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
                     </div>
                 ))}
+            </div>
+            <div>
+                <p>Page: {currentPage + 1} / {totalPages}</p>
+                <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
+                <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
             </div>
         </div>
     );
