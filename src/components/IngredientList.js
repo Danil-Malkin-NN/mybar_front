@@ -15,7 +15,7 @@ function IngredientList() {
                 if (searchTerm) {
                     url = `http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`;
                 } else {
-                    url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=5&sort=desc`;
+                    url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
                 }
                 const response = await axios.get(url);
                 setIngredients(response.data.content);
