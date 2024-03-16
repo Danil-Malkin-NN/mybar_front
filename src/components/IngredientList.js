@@ -11,13 +11,15 @@ function IngredientList() {
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                let url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
+                let url = '';
                 if (searchTerm) {
                     url = `http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`;
+                } else {
+                    url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=5&sort=desc`;
                 }
                 const response = await axios.get(url);
                 setIngredients(response.data.content);
-                if(!searchTerm){
+                if (!searchTerm) {
                     setTotalPages(response.data.totalPages);
                 }
             } catch (error) {
@@ -67,11 +69,13 @@ function IngredientList() {
                     </div>
                 ))}
             </div>
-            <div>
-                <p>Page: {currentPage + 1} / {totalPages}</p>
-                <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
-                <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
-            </div>
+            {!searchTerm && (
+                <div>
+                    <p>Page: {currentPage + 1} / {totalPages}</p>
+                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
+                    <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+                </div>
+            )}
         </div>
     );
 }
