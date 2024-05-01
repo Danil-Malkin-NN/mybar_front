@@ -18,18 +18,17 @@ function IngredientList() {
                     url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
                 }
                 const response = await axios.get(url);
+                setIngredients(response.data.content);
                 if (!searchTerm) {
                     setTotalPages(response.data.totalPages);
                 }
-                setIngredients(response.data.content);
-                setError(null); // Очищаем ошибку при успешном получении данных
             } catch (error) {
-                setError(error.message); // Устанавливаем ошибку, если запрос завершился неудачно
+                setError(error.message);
             }
         }
 
         fetchIngredients();
-    }, [searchTerm, currentPage]);
+    }, [searchTerm, currentPage, ingredients]); // добавлен ingredients
 
     const handleAddIngredient = async (ingredientId) => {
         try {
