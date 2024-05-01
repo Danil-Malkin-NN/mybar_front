@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 function IngredientList() {
@@ -61,24 +61,32 @@ function IngredientList() {
                 />
             </div>
             <div className="ingredient-grid">
-                {ingredients.map(ingredient => (
-                    <div key={ingredient.id} className="ingredient-card">
-                        <h3>{ingredient.name}</h3>
-                        <p>{ingredient.description}</p>
-                        {/* Другая информация об ингредиенте */}
-                        <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
-                    </div>
-                ))}
+                {ingredients && ingredients.length > 0 ? (
+                    ingredients.map(ingredient => (
+                        <div key={ingredient.id} className="ingredient-card">
+                            <h3>{ingredient.name}</h3>
+                            <p>{ingredient.description}</p>
+                            {/* Другая информация об ингредиенте */}
+                            <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No ingredients found</p>
+                )}
             </div>
             {!searchTerm && (
                 <div>
                     <p>Page: {currentPage + 1} / {totalPages}</p>
-                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
-                    <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous
+                    </button>
+                    <button disabled={currentPage === totalPages - 1}
+                            onClick={() => handlePageChange(currentPage + 1)}>Next
+                    </button>
                 </div>
             )}
         </div>
     );
 }
+
 
 export default IngredientList;
