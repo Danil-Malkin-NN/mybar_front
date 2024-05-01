@@ -18,12 +18,13 @@ function IngredientList() {
                     url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
                 }
                 const response = await axios.get(url);
-                setIngredients(response.data.content);
                 if (!searchTerm) {
                     setTotalPages(response.data.totalPages);
                 }
+                setIngredients(response.data.content);
+                setError(null); // Очищаем ошибку при успешном получении данных
             } catch (error) {
-                setError(error.message);
+                setError(error.message); // Устанавливаем ошибку, если запрос завершился неудачно
             }
         }
 
