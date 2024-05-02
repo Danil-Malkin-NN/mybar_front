@@ -1,99 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './griid.css'; // импортируем файл стилей для карточек
 
 function IngredientList() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                let url = '';
-                if (searchTerm) {
-                    url = `http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`;
-                } else {
-                    url = `http://mybar.dvmalkin.online/api/ingredients?page=${currentPage}&size=10&sort=desc`;
-                }
-                const response = await axios.get(url);
+                const response = await axios.get(`http://mybar.dvmalkin.online/api/ingredients?page=${page}&size=${size}`);
                 setIngredients(response.data.content);
-                if (!searchTerm) {
-                    setTotalPages(response.data.totalPages);
-                }
+                setTotalPages(response.data.totalPages);
             } catch (error) {
                 setError(error.message);
             }
         }
 
         fetchIngredients();
-    }, [searchTerm, currentPage]); // Убрано ingredients из зависимостей
-
-    const handleAddIngredient = async (ingredientId) => {
-        try {
-            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`);
-            console.log('Ingredient added successfully:', response.data);
-            // Можно обновить список ингредиентов после успешного добавления
-        } catch (error) {
-            console.error('Failed to add ingredient:', error);
-        }
-    };
+    }, [page, size]);
 
     const handleSearch = async () => {
-        setCurrentPage(0); // Сбросить страницу при новом поиске
-        // Выполнить поиск по заданному поисковому запросу
-        // Убедитесь, что setSearchTerm вызывается только после ввода пользователя
         try {
             const response = await axios.get(`http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`);
-            setIngredients(response.data.content);
-            setTotalPages(response.data.totalPages);
+            setIngredients(response.data);
         } catch (error) {
             setError(error.message);
         }
+    };
+
+    const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handlePreviousPage = () => {
+        setPage(page - 1);
+    };
+
+    const handleNextPage = () => {
+        setPage(page + 1);
     };
 
     if (error) {
         return <div>Error: {error}</div>;
     }
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
     return (
-        <div>
-            <h1>Ingredients</h1>
+        <div className="ingredient-container">
+            <h1>Ингредиенты</h1>
             <div>
                 <input
                     type="text"
                     placeholder="Search ingredient..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={handleInputChange}
                 />
-                <button onClick={handleSearch}>Search</button> {/* Кнопка для выполнения поиска */}
+                <button onClick={handleSearch}>Search</button>
             </div>
             <div className="ingredient-grid">
-                {ingredients && ingredients.length > 0 ? (
-                    ingredients.map(ingredient => (
-                        <div key={ingredient.id} className="ingredient-card">
-                            <h3>{ingredient.name}</h3>
-                            <p>{ingredient.description}</p>
-                            {/* Другая информация об ингредиенте */}
-                            <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
-                        </div>
-                    ))
-                ) : (
-                    <p>No ingredients found</p>
-                )}
+                {ingredients.map(ingredient => (
+                    <div key={ingredient.id} className="ingredient-card">
+                        <h3>{ingredient.name}</h3>
+                        <p>{ingredient.description}</p>
+                        {/* Другая информация об ингредиенте */}
+                    </div>
+                ))}
             </div>
-            {!searchTerm && (
-                <div>
-                    <p>Page: {currentPage + 1} / {totalPages}</p>
-                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
-                    <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
-                </div>
-            )}
+            <div>
+                <span>Page: {page + 1} of {totalPages}</span>
+                <button disabled={page === 0} onClick={handlePreviousPage}>Previous</button>
+                <button disabled={page === totalPages - 1} onClick={handleNextPage}>Next</button>
+            </div>
         </div>
     );
 }
