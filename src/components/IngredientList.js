@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function IngredientList() {
@@ -28,7 +28,7 @@ function IngredientList() {
         }
 
         fetchIngredients();
-    }, [searchTerm, currentPage, ingredients]); // добавлен ingredients
+    }, [searchTerm, currentPage]); // Убрано ingredients из зависимостей
 
     const handleAddIngredient = async (ingredientId) => {
         try {
@@ -37,6 +37,19 @@ function IngredientList() {
             // Можно обновить список ингредиентов после успешного добавления
         } catch (error) {
             console.error('Failed to add ingredient:', error);
+        }
+    };
+
+    const handleSearch = async () => {
+        setCurrentPage(0); // Сбросить страницу при новом поиске
+        // Выполнить поиск по заданному поисковому запросу
+        // Убедитесь, что setSearchTerm вызывается только после ввода пользователя
+        try {
+            const response = await axios.get(`http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`);
+            setIngredients(response.data.content);
+            setTotalPages(response.data.totalPages);
+        } catch (error) {
+            setError(error.message);
         }
     };
 
@@ -58,6 +71,7 @@ function IngredientList() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
+                <button onClick={handleSearch}>Search</button> {/* Кнопка для выполнения поиска */}
             </div>
             <div className="ingredient-grid">
                 {ingredients && ingredients.length > 0 ? (
@@ -76,16 +90,12 @@ function IngredientList() {
             {!searchTerm && (
                 <div>
                     <p>Page: {currentPage + 1} / {totalPages}</p>
-                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous
-                    </button>
-                    <button disabled={currentPage === totalPages - 1}
-                            onClick={() => handlePageChange(currentPage + 1)}>Next
-                    </button>
+                    <button disabled={currentPage === 0} onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
+                    <button disabled={currentPage === totalPages - 1} onClick={() => handlePageChange(currentPage + 1)}>Next</button>
                 </div>
             )}
         </div>
     );
 }
-
 
 export default IngredientList;
