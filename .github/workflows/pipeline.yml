@@ -82,3 +82,4 @@ jobs:
         with:
           manifests: |
             k8s/deployment.yaml
+          namespace: my-bar

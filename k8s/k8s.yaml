@@ -5,6 +5,7 @@ metadata:
   labels:
     app: mybar-frontend
   name: mybar-frontend
+  namespace: my-bar
 spec:
   replicas: ${REPLICA_COUNT}
   selector:
@@ -24,6 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mybar-frontend-service
+  namespace: my-bar
 spec:
   selector:
     app: mybar-frontend
@@ -36,6 +38,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: my-bar-front
+  namespace: my-bar
 spec:
   rules:
   - host: "mybar.dvmalkin.online"
