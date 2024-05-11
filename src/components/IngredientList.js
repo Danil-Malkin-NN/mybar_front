@@ -49,6 +49,16 @@ function IngredientList() {
         return <div>Error: {error}</div>;
     }
 
+    const handleAddIngredient = async (ingredientId) => {
+        try {
+            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`);
+            console.log('Ingredient added successfully:', response.data);
+            // Можно обновить список ингредиентов после успешного добавления
+        } catch (error) {
+            console.error('Failed to add ingredient:', error);
+        }
+    };
+
     return (
         <div className="ingredient-container">
             <h1>Ингредиенты</h1>
@@ -67,6 +77,7 @@ function IngredientList() {
                         <h3>{ingredient.name}</h3>
                         <p>{ingredient.description}</p>
                         {/* Другая информация об ингредиенте */}
+                        <button onClick={() => handleAddIngredient(ingredient.id)}>+</button>
                     </div>
                 ))}
             </div>
