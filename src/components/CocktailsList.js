@@ -8,6 +8,7 @@ function CocktailsList() {
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         async function fetchCocktails() {
@@ -40,11 +41,11 @@ function CocktailsList() {
     };
 
     const handleInputChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchInput(e.target.value);
     };
 
     const handleSearch = async () => {
-        setCurrentPage(0); // Сбросить страницу при выполнении поиска
+        setSearchTerm(searchInput); // Установить поисковый термин только по нажатию кнопки
     };
 
     if (error) {
@@ -58,7 +59,7 @@ function CocktailsList() {
                 <input
                     type="text"
                     placeholder="Search cocktail..."
-                    value={searchTerm}
+                    value={searchInput}
                     onChange={handleInputChange}
                 />
                 <button onClick={handleSearch}>Search</button>
