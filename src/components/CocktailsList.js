@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './griid.css';
+import axios from "axios";
 
 function CocktailsList() {
     const [cocktails, setCocktails] = useState([]);
@@ -14,9 +15,6 @@ function CocktailsList() {
         async function fetchCocktails() {
             try {
                 let url = `http://mybar.dvmalkin.online/api/cocktails?page=${currentPage}&size=10`;
-                if (searchTerm) {
-                    url = `http://mybar.dvmalkin.online/api/cocktails/search?name=${searchTerm}`;
-                }
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktails');
@@ -32,6 +30,16 @@ function CocktailsList() {
         fetchCocktails();
     }, [currentPage, searchTerm]);
 
+
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get(`http://mybar.dvmalkin.online/api/cocktails/search?name=${searchTerm}`);
+            setCocktails(response.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
     const handlePreviousPage = () => {
         setCurrentPage(currentPage - 1);
     };
@@ -42,10 +50,6 @@ function CocktailsList() {
 
     const handleInputChange = (e) => {
         setSearchInput(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        setSearchTerm(searchInput); // Установить поисковый термин только по нажатию кнопки
     };
 
     if (error) {
