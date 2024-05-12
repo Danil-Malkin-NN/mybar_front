@@ -7,11 +7,16 @@ function CocktailsList() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         async function fetchCocktails() {
             try {
-                const response = await fetch(`http://mybar.dvmalkin.online/api/cocktails?page=${currentPage}&size=10`);
+                let url = `http://mybar.dvmalkin.online/api/cocktails?page=${currentPage}&size=10`;
+                if (searchTerm) {
+                    url = `http://mybar.dvmalkin.online/api/cocktails/search?name=${searchTerm}`;
+                }
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktails');
                 }
@@ -24,11 +29,7 @@ function CocktailsList() {
         }
 
         fetchCocktails();
-    }, [currentPage]);
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    }, [currentPage, searchTerm]);
 
     const handlePreviousPage = () => {
         setCurrentPage(currentPage - 1);
@@ -38,9 +39,30 @@ function CocktailsList() {
         setCurrentPage(currentPage + 1);
     };
 
+    const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearch = async () => {
+        setCurrentPage(0); // Сбросить страницу при выполнении поиска
+    };
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
         <div className="ingredient-container">
             <h1>Коктейли</h1>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Search cocktail..."
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                />
+                <button onClick={handleSearch}>Search</button>
+            </div>
             <div className="ingredient-grid">
                 {cocktails.map(cocktail => (
                     <div key={cocktail.id} className="ingredient-card">
