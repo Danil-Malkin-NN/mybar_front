@@ -8,7 +8,6 @@ function CocktailsList() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
     const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
@@ -28,12 +27,12 @@ function CocktailsList() {
         }
 
         fetchCocktails();
-    }, [currentPage, searchTerm]);
+    }, [currentPage, searchInput]);
 
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.online/api/cocktails/search?name=${searchTerm}`);
+            const response = await axios.get(`http://mybar.dvmalkin.online/api/cocktails/search?name=${searchInput}`);
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);
