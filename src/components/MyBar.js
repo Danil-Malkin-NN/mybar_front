@@ -17,7 +17,7 @@ function MyBar() {
 
     const fetchIngredients = async () => {
         try {
-            const response = await axios.get('${apiUrl}/my/ingredients');
+            const response = await axios.get(`${apiUrl}/my/ingredients`);
             setIngredients(response.data);
         } catch (error) {
             setError(error.message);
@@ -26,7 +26,7 @@ function MyBar() {
 
     const myCocktails = async () => {
         try {
-            const response = await axios.get('${apiUrl}/my/available/cocktails');
+            const response = await axios.get(`${apiUrl}/my/available/cocktails`);
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);
