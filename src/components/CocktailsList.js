@@ -8,12 +8,15 @@ function CocktailsList() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
     const [searchInput, setSearchInput] = useState('');
+
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         async function fetchCocktails() {
             try {
-                let url = `http://mybar.dvmalkin.ru/api/cocktails?page=${currentPage}&size=10`;
+                let url = `${apiUrl}/api/cocktails?page=${currentPage}&size=10`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktails');
@@ -27,12 +30,12 @@ function CocktailsList() {
         }
 
         fetchCocktails();
-    }, [currentPage, searchInput]);
+    }, [currentPage, searchTerm]);
 
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.ru/api/cocktails/search?name=${searchInput}`);
+            const response = await axios.get(`${apiUrl}/api/cocktails/search?name=${searchTerm}`);
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);

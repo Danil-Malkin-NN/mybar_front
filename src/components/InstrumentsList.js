@@ -10,10 +10,12 @@ function InstrumentList() {
     const [size, setSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         async function fetchInstruments() {
             try {
-                const response = await axios.get(`http://mybar.dvmalkin.ru/api/instruments?page=${page}&size=${size}`);
+                const response = await axios.get(`${apiUrl}/api/instruments?page=${page}&size=${size}`);
                 setInstruments(response.data.content);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
@@ -26,7 +28,7 @@ function InstrumentList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.ru/api/instruments/search?name=${searchTerm}`);
+            const response = await axios.get(`${apiUrl}/api/instruments/search?name=${searchTerm}`);
             setInstruments(response.data);
         } catch (error) {
             setError(error.message);
