@@ -17,7 +17,7 @@ function IngredientList() {
         async function fetchIngredients() {
             try {
                 const response = await axios.get(`${apiUrl}/api/ingredients?page=${page}&size=${size}`);
-                setIngredients(response.data.content);
+                setIngredients(Array.isArray(response.data.content) ? response.data.content : []);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
                 setError(error.message);
@@ -30,7 +30,7 @@ function IngredientList() {
     const handleSearch = async () => {
         try {
             const response = await axios.get(`${apiUrl}/api/ingredients/search?name=${searchTerm}`);
-            setIngredients(response.data);
+            setIngredients(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             setError(error.message);
         }
