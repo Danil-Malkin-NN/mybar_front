@@ -8,7 +8,8 @@ RUN npm run build
 
 ARG REACT_APP_BASE_URL
 ENV REACT_APP_BASE_URL=$REACT_APP_BASE_URL
-
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=http://localhost
 FROM nginx:alpine
 
 COPY nginxconf/main.conf /etc/nginx/conf.d/default.conf

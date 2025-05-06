@@ -8,8 +8,10 @@ function CocktailDetails() {
     const [cocktail, setCocktail] = useState(null);
     const [error, setError] = useState(null);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
-        fetch(`http://mybar.dvmalkin.ru/api/cocktails/${id}`)
+        fetch(`${apiUrl}/api/cocktails/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktail details');

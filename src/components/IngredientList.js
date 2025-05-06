@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './griid.css'; // импортируем файл стилей для карточек
 
+
 function IngredientList() {
     const [ingredients, setIngredients] = useState([]);
     const [error, setError] = useState(null);
@@ -10,10 +11,12 @@ function IngredientList() {
     const [size, setSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                const response = await axios.get(`http://mybar.dvmalkin.ru/api/ingredients?page=${page}&size=${size}`);
+                const response = await axios.get(`${apiUrl}/api/ingredients?page=${page}&size=${size}`);
                 setIngredients(response.data.content);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
@@ -26,7 +29,7 @@ function IngredientList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.ru/api/ingredients/search?name=${searchTerm}`);
+            const response = await axios.get(`${apiUrl}/api/ingredients/search?name=${searchTerm}`);
             setIngredients(response.data);
         } catch (error) {
             setError(error.message);
@@ -51,7 +54,7 @@ function IngredientList() {
 
     const handleAddIngredient = async (ingredientId) => {
         try {
-            const response = await axios.post(`http://mybar.dvmalkin.ru/api/my/ingredients/add?ingredientsId=${ingredientId}`);
+            const response = await axios.post(`${apiUrl}/api/my/ingredients/add?ingredientsId=${ingredientId}`);
             console.log('Ingredient added successfully:', response.data);
             // Можно обновить список ингредиентов после успешного добавления
         } catch (error) {
