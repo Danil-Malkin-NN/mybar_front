@@ -16,7 +16,7 @@ function CocktailsList() {
     useEffect(() => {
         async function fetchCocktails() {
             try {
-                let url = `${apiUrl}/api/cocktails?page=${currentPage}&size=10`;
+                let url = `${apiUrl}/cocktails?page=${currentPage}&size=10`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktails');
@@ -35,7 +35,7 @@ function CocktailsList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/api/cocktails/search?name=${searchTerm}`);
+            const response = await axios.get(`${apiUrl}/cocktails/search?name=${searchTerm}`);
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);

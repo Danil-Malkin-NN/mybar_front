@@ -17,7 +17,7 @@ function MyBar() {
 
     const fetchIngredients = async () => {
         try {
-            const response = await axios.get('${apiUrl}/api/my/ingredients');
+            const response = await axios.get('${apiUrl}/my/ingredients');
             setIngredients(response.data);
         } catch (error) {
             setError(error.message);
@@ -26,7 +26,7 @@ function MyBar() {
 
     const myCocktails = async () => {
         try {
-            const response = await axios.get('${apiUrl}/api/my/available/cocktails');
+            const response = await axios.get('${apiUrl}/my/available/cocktails');
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);
@@ -35,7 +35,7 @@ function MyBar() {
 
     const handleDeleteIngredient = async (ingredientId) => {
         try {
-            await axios.delete(`${apiUrl}/api/my/ingredients/delete?ingredientsId=${ingredientId}`);
+            await axios.delete(`${apiUrl}/my/ingredients/delete?ingredientsId=${ingredientId}`);
             // Обновляем список ингредиентов после удаления
             fetchIngredients();
             myCocktails();

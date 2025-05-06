@@ -11,7 +11,7 @@ function CocktailDetails() {
     const apiUrl = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`${apiUrl}/api/cocktails/${id}`)
+        fetch(`${apiUrl}/cocktails/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktail details');

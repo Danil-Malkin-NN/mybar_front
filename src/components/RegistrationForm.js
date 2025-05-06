@@ -35,7 +35,7 @@ function RegistrationForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('${apiUrl}/api/register', formData);
+            const response = await axios.post('${apiUrl}/register', formData);
             setSuccessMessage('Registration successful!'); // Показать сообщение об успехе
             // Очистить поля формы после успешной регистрации
             setFormData({

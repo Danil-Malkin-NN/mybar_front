@@ -17,7 +17,7 @@ function IngredientList() {
         async function fetchIngredients() {
             try {
                 console.log('API URL:', process.env.REACT_APP_BASE_URL);
-                const response = await axios.get(`${apiUrl}/api/ingredients?page=${page}&size=${size}`);
+                const response = await axios.get(`${apiUrl}/ingredients?page=${page}&size=${size}`);
                 setIngredients(Array.isArray(response.data.content) ? response.data.content : []);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
@@ -31,7 +31,7 @@ function IngredientList() {
     const handleSearch = async () => {
         try {
             console.log('API URL:', process.env.REACT_APP_BASE_URL);
-            const response = await axios.get(`${apiUrl}/api/ingredients/search?name=${searchTerm}`);
+            const response = await axios.get(`${apiUrl}/ingredients/search?name=${searchTerm}`);
             setIngredients(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             setError(error.message);
@@ -56,7 +56,7 @@ function IngredientList() {
 
     const handleAddIngredient = async (ingredientId) => {
         try {
-            const response = await axios.post(`${apiUrl}/api/my/ingredients/add?ingredientsId=${ingredientId}`);
+            const response = await axios.post(`${apiUrl}/my/ingredients/add?ingredientsId=${ingredientId}`);
             console.log('Ingredient added successfully:', response.data);
             // Можно обновить список ингредиентов после успешного добавления
         } catch (error) {

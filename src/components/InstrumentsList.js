@@ -15,7 +15,7 @@ function InstrumentList() {
     useEffect(() => {
         async function fetchInstruments() {
             try {
-                const response = await axios.get(`${apiUrl}/api/instruments?page=${page}&size=${size}`);
+                const response = await axios.get(`${apiUrl}/instruments?page=${page}&size=${size}`);
                 setInstruments(response.data.content);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
@@ -28,7 +28,7 @@ function InstrumentList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/api/instruments/search?name=${searchTerm}`);
+            const response = await axios.get(`${apiUrl}/instruments/search?name=${searchTerm}`);
             setInstruments(response.data);
         } catch (error) {
             setError(error.message);
