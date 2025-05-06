@@ -14,7 +14,7 @@ function MyBar() {
 
     const fetchIngredients = async () => {
         try {
-            const response = await axios.get('http://mybar.dvmalkin.online/api/my/ingredients');
+            const response = await axios.get('http://mybar.dvmalkin.ru/api/my/ingredients');
             setIngredients(response.data);
         } catch (error) {
             setError(error.message);
@@ -23,7 +23,7 @@ function MyBar() {
 
     const myCocktails = async () => {
         try {
-            const response = await axios.get('http://mybar.dvmalkin.online/api/my/available/cocktails');
+            const response = await axios.get('http://mybar.dvmalkin.ru/api/my/available/cocktails');
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);
@@ -32,7 +32,7 @@ function MyBar() {
 
     const handleDeleteIngredient = async (ingredientId) => {
         try {
-            await axios.delete(`http://mybar.dvmalkin.online/api/my/ingredients/delete?ingredientsId=${ingredientId}`);
+            await axios.delete(`http://mybar.dvmalkin.ru/api/my/ingredients/delete?ingredientsId=${ingredientId}`);
             // Обновляем список ингредиентов после удаления
             fetchIngredients();
             myCocktails();

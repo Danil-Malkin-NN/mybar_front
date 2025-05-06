@@ -9,7 +9,7 @@ function CocktailDetails() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://mybar.dvmalkin.online/api/cocktails/${id}`)
+        fetch(`http://mybar.dvmalkin.ru/api/cocktails/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktail details');

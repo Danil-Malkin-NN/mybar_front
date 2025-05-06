@@ -9,7 +9,7 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://mybar.dvmalkin.online/api/login', {
+            const response = await axios.post('http://mybar.dvmalkin.ru/api/login', {
                 "username": username,
                 "password": password
             }, {

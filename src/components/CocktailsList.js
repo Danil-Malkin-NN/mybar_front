@@ -13,7 +13,7 @@ function CocktailsList() {
     useEffect(() => {
         async function fetchCocktails() {
             try {
-                let url = `http://mybar.dvmalkin.online/api/cocktails?page=${currentPage}&size=10`;
+                let url = `http://mybar.dvmalkin.ru/api/cocktails?page=${currentPage}&size=10`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Cocktails');
@@ -32,7 +32,7 @@ function CocktailsList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.online/api/cocktails/search?name=${searchInput}`);
+            const response = await axios.get(`http://mybar.dvmalkin.ru/api/cocktails/search?name=${searchInput}`);
             setCocktails(response.data);
         } catch (error) {
             setError(error.message);

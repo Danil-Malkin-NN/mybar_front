@@ -13,7 +13,7 @@ function IngredientList() {
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                const response = await axios.get(`http://mybar.dvmalkin.online/api/ingredients?page=${page}&size=${size}`);
+                const response = await axios.get(`http://mybar.dvmalkin.ru/api/ingredients?page=${page}&size=${size}`);
                 setIngredients(response.data.content);
                 setTotalPages(response.data.totalPages);
             } catch (error) {
@@ -26,7 +26,7 @@ function IngredientList() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://mybar.dvmalkin.online/api/ingredients/search?name=${searchTerm}`);
+            const response = await axios.get(`http://mybar.dvmalkin.ru/api/ingredients/search?name=${searchTerm}`);
             setIngredients(response.data);
         } catch (error) {
             setError(error.message);
@@ -51,7 +51,7 @@ function IngredientList() {
 
     const handleAddIngredient = async (ingredientId) => {
         try {
-            const response = await axios.post(`http://mybar.dvmalkin.online/api/my/ingredients/add?ingredientsId=${ingredientId}`);
+            const response = await axios.post(`http://mybar.dvmalkin.ru/api/my/ingredients/add?ingredientsId=${ingredientId}`);
             console.log('Ingredient added successfully:', response.data);
             // Можно обновить список ингредиентов после успешного добавления
         } catch (error) {

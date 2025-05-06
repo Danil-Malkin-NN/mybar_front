@@ -41,7 +41,7 @@ metadata:
   namespace: my-bar
 spec:
   rules:
-  - host: "mybar.dvmalkin.online"
+  - host: "mybar.dvmalkin.ru"
     http:
       paths:
         - path: /
