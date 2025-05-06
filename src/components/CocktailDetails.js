@@ -8,7 +8,7 @@ function CocktailDetails() {
     const [cocktail, setCocktail] = useState(null);
     const [error, setError] = useState(null);
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
         fetch(`${apiUrl}/api/cocktails/${id}`)

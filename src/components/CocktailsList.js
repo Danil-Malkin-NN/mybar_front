@@ -11,7 +11,7 @@ function CocktailsList() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchInput, setSearchInput] = useState('');
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
         async function fetchCocktails() {

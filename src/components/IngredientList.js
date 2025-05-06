@@ -11,12 +11,12 @@ function IngredientList() {
     const [size, setSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
         async function fetchIngredients() {
             try {
-                console.log('API URL:', process.env.REACT_APP_API_URL);
+                console.log('API URL:', process.env.REACT_APP_BASE_URL);
                 const response = await axios.get(`${apiUrl}/api/ingredients?page=${page}&size=${size}`);
                 setIngredients(Array.isArray(response.data.content) ? response.data.content : []);
                 setTotalPages(response.data.totalPages);
@@ -30,7 +30,7 @@ function IngredientList() {
 
     const handleSearch = async () => {
         try {
-            console.log('API URL:', process.env.REACT_APP_API_URL);
+            console.log('API URL:', process.env.REACT_APP_BASE_URL);
             const response = await axios.get(`${apiUrl}/api/ingredients/search?name=${searchTerm}`);
             setIngredients(Array.isArray(response.data) ? response.data : []);
         } catch (error) {

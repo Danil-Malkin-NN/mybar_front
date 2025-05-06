@@ -10,7 +10,7 @@ function InstrumentList() {
     const [size, setSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
         async function fetchInstruments() {
