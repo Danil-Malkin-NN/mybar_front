@@ -1,15 +1,15 @@
-FROM node:20-alpine as react-build
+FROM node:20-alpine AS react-build
 WORKDIR /app
+
 COPY . ./
-
-RUN npm install
-
-RUN npm run build
 
 ARG REACT_APP_BASE_URL
 ENV REACT_APP_BASE_URL=$REACT_APP_BASE_URL
-FROM nginx:alpine
 
+RUN npm install
+RUN npm run build
+
+FROM nginx:alpine
 COPY nginxconf/main.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /app/build /usr/share/nginx/html
 
